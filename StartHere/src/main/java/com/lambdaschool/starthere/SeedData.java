@@ -112,32 +112,50 @@ public class SeedData implements CommandLineRunner
                            users);
         userService.save(u5);
 
-        // using JavaFaker create a bunch of regular users
-        // https://www.baeldung.com/java-faker
-        // https://www.baeldung.com/regular-expressions-java
+        users = new ArrayList<>();
+        users.add(new UserRoles(new User(),
+                r2));
+        User u6 = new User("nicholasinterest1",
+                "postgres",
+                "nicholasinterest1@icloud.com",
+                users);
+        userService.save(u6);
 
-        FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
-                                                                    new RandomService());
-        Faker nameFaker = new Faker(new Locale("en-US"));
+        users = new ArrayList<>();
+        users.add(new UserRoles(new User(),
+                r2));
+        User u7 = new User("bananadancer",
+                "pb&j",
+                "peanutbutterjelly@pb&j.com",
+                users);
+        userService.save(u7);
 
-        for (int i = 0; i < 100; i++)
-        {
-            new User();
-            User fakeUser;
-
-            users = new ArrayList<>();
-            users.add(new UserRoles(new User(),
-                                    r2));
-            fakeUser = new User(nameFaker.name()
-                                         .username(),
-                                "password",
-                                nameFaker.internet()
-                                         .emailAddress(),
-                                users);
-            fakeUser.getUseremails()
-                    .add(new Useremail(fakeUser,
-                                       fakeValuesService.bothify("????##@gmail.com")));
-            userService.save(fakeUser);
-        }
+//        // using JavaFaker create a bunch of regular users
+//        // https://www.baeldung.com/java-faker
+//        // https://www.baeldung.com/regular-expressions-java
+//
+//        FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
+//                                                                    new RandomService());
+//        Faker nameFaker = new Faker(new Locale("en-US"));
+//
+//        for (int i = 0; i < 100; i++)
+//        {
+//            new User();
+//            User fakeUser;
+//
+//            users = new ArrayList<>();
+//            users.add(new UserRoles(new User(),
+//                                    r2));
+//            fakeUser = new User(nameFaker.name()
+//                                         .username(),
+//                                "password",
+//                                nameFaker.internet()
+//                                         .emailAddress(),
+//                                users);
+//            fakeUser.getUseremails()
+//                    .add(new Useremail(fakeUser,
+//                                       fakeValuesService.bothify("????##@gmail.com")));
+//            userService.save(fakeUser);
+//        }
     }
 }

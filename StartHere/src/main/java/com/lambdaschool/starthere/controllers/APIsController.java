@@ -53,8 +53,7 @@ public class APIsController
 
         String requestURL = "https://openlibrary.org/api/books?bibkeys=" + "ISBN:" + isbn + "&format=json";
 
-        ParameterizedTypeReference<Map<String, APIOpenLibrary>> responseType = new ParameterizedTypeReference<Map<String, APIOpenLibrary>>()
-        {
+        ParameterizedTypeReference<Map<String, APIOpenLibrary>> responseType = new ParameterizedTypeReference<>() {
         };
         ResponseEntity<Map<String, APIOpenLibrary>> responseEntity = restTemplate.exchange(requestURL,
                                                                                            HttpMethod.GET,
