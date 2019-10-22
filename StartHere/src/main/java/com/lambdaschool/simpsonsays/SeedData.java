@@ -45,14 +45,17 @@ public class SeedData implements CommandLineRunner
                                  r3));
         User u1 = new User("admin",
                            "password",
-                           "admin@lambdaschool.local",
+                           "admin@admin.net",
                            admins);
         u1.getUseremails()
           .add(new Useremail(u1,
-                             "admin@email.local"));
+                             "admin@admin.edu"));
         u1.getUseremails()
           .add(new Useremail(u1,
-                             "admin@mymail.local"));
+                             "admin@yahoo.com"));
+        u1.getUseremails()
+          .add(new Useremail(u1,
+                            "admin@admin.org"));
 
         userService.save(u1);
 
@@ -62,28 +65,28 @@ public class SeedData implements CommandLineRunner
                                 r3));
         datas.add(new UserRoles(new User(),
                                 r2));
-        User u2 = new User("cinnamon",
-                           "1234567",
-                           "cinnamon@lambdaschool.local",
+        User u2 = new User("cinnamontoast",
+                           "crunch",
+                           "ctc@yum.com",
                            datas);
         u2.getUseremails()
           .add(new Useremail(u2,
-                             "cinnamon@mymail.local"));
+                             "cinnamon@yum.org"));
         u2.getUseremails()
           .add(new Useremail(u2,
-                             "hops@mymail.local"));
+                             "cinnamon@yum.net"));
         u2.getUseremails()
           .add(new Useremail(u2,
-                             "bunny@email.local"));
+                             "cinnamon@yum.edu"));
         userService.save(u2);
 
         // user
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(),
                                 r2));
-        User u3 = new User("barnbarn",
-                           "ILuvM4th!",
-                           "barnbarn@lambdaschool.local",
+        User u3 = new User("barn",
+                           "silo",
+                           "barn@silo.com",
                            users);
         u3.getUseremails()
           .add(new Useremail(u3,
@@ -93,18 +96,18 @@ public class SeedData implements CommandLineRunner
         users = new ArrayList<>();
         users.add(new UserRoles(new User(),
                                 r2));
-        User u4 = new User("puttat",
-                           "password",
-                           "puttat@school.lambda",
+        User u4 = new User("puttputt",
+                           "atari",
+                           "puttputtatari@atari.com",
                            users);
         userService.save(u4);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(),
                                 r2));
-        User u5 = new User("misskitty",
-                           "password",
-                           "misskitty@school.lambda",
+        User u5 = new User("hellokitty",
+                           "kittywhite",
+                           "hellokitty@kittywhite.com",
                            users);
         userService.save(u5);
 
@@ -113,7 +116,7 @@ public class SeedData implements CommandLineRunner
                 r2));
         User u6 = new User("nicholasinterest1",
                 "postgres",
-                "nicholasinterest1@icloud.com",
+                "nickinterest@banana.com",
                 users);
         userService.save(u6);
 
@@ -125,33 +128,5 @@ public class SeedData implements CommandLineRunner
                 "peanutbutterjelly@pb&j.com",
                 users);
         userService.save(u7);
-
-//        // using JavaFaker create a bunch of regular users
-//        // https://www.baeldung.com/java-faker
-//        // https://www.baeldung.com/regular-expressions-java
-//
-//        FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
-//                                                                    new RandomService());
-//        Faker nameFaker = new Faker(new Locale("en-US"));
-//
-//        for (int i = 0; i < 100; i++)
-//        {
-//            new User();
-//            User fakeUser;
-//
-//            users = new ArrayList<>();
-//            users.add(new UserRoles(new User(),
-//                                    r2));
-//            fakeUser = new User(nameFaker.name()
-//                                         .username(),
-//                                "password",
-//                                nameFaker.internet()
-//                                         .emailAddress(),
-//                                users);
-//            fakeUser.getUseremails()
-//                    .add(new Useremail(fakeUser,
-//                                       fakeValuesService.bothify("????##@gmail.com")));
-//            userService.save(fakeUser);
-//        }
     }
 }
