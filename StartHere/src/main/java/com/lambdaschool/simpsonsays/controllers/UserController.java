@@ -2,6 +2,7 @@ package com.lambdaschool.simpsonsays.controllers;
 
 import com.lambdaschool.simpsonsays.logging.Loggable;
 import com.lambdaschool.simpsonsays.models.User;
+import com.lambdaschool.simpsonsays.models.UserRoles;
 import com.lambdaschool.simpsonsays.services.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Loggable
@@ -193,33 +195,6 @@ public class UserController
     //            }
     //        ]
     //        }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping(value = "/user",
-                 consumes = {"application/json"},
-                 produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest request,
-                                        @Valid
-                                        @RequestBody
-                                                User newuser) throws URISyntaxException
-    {
-        logger.trace(request.getMethod()
-                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
-
-        newuser = userService.save(newuser);
-
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                                                    .path("/{userid}")
-                                                    .buildAndExpand(newuser.getUserid())
-                                                    .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        return new ResponseEntity<>(null,
-                                    responseHeaders,
-                                    HttpStatus.CREATED);
-    }
-
 
     // http://localhost:2019/users/user/7
 //        {
