@@ -1,6 +1,7 @@
 package com.lambdaschool.simpsonsays.services;
 
 import com.lambdaschool.simpsonsays.models.Quotes;
+import com.lambdaschool.simpsonsays.models.User;
 
 import java.util.List;
 
@@ -14,5 +15,9 @@ public interface QuotesService
 
     void delete(long id);
 
-    Quotes save(Quotes quote);
+    Quotes update(long Quotesid,
+                     String quotes,
+                     boolean isAdmin);
+
+    Quotes save(Quotes quotes, User user);
 }

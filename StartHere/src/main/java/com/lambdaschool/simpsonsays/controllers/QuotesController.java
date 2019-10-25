@@ -1,13 +1,16 @@
 package com.lambdaschool.simpsonsays.controllers;
 
 import com.lambdaschool.simpsonsays.models.Quotes;
+import com.lambdaschool.simpsonsays.models.User;
 import com.lambdaschool.simpsonsays.services.QuotesService;
+import com.lambdaschool.simpsonsays.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,6 +28,9 @@ public class QuotesController
 
     @Autowired
     QuotesService quotesService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping(value = "/quotes",
             produces = {"application/json"})
@@ -63,14 +69,17 @@ public class QuotesController
     }
 
 
-    @PostMapping(value = "/quote")
+    @PostMapping(value = "/quote",
+                 consumes = {"application/json"},
+                 produces = {"application/json"})
     public ResponseEntity<?> addNewQuote(HttpServletRequest request, @Valid
     @RequestBody
-            Quotes newQuote) throws URISyntaxException
+            Quotes newQuote, Authentication authentication) throws URISyntaxException
     {
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        newQuote = quotesService.save(newQuote);
+        User user = userService.findByName(authentication.getName());
+        newQuote = quotesService.save(newQuote, user);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -80,7 +89,6 @@ public class QuotesController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/quote/{id}")
     public ResponseEntity<?> deleteQuoteById(HttpServletRequest request,
                                              @PathVariable
@@ -89,6 +97,19 @@ public class QuotesController
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
 
         quotesService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/Quotes/{Quotesid}/quote/{quotes}")
+    public ResponseEntity<?> updateQuotes(HttpServletRequest request,
+                                             @PathVariable
+                                                     long Quotesid,
+                                             @PathVariable
+                                                     String quotes)
+    {
+        quotesService.update(Quotesid,
+                quotes,
+                request.isUserInRole("ADMIN"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
